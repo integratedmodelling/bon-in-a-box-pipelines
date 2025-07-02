@@ -1,0 +1,40 @@
+script: getThresholdBasedBinaryMasking.py
+name: Get Threshold Based Binary Masking
+description: | 
+  This script retrieves a binary mask based on a threshold applied to the input data.
+  It processes the input data to create a mask where values above the threshold are set to 1 and others to 0.
+author:
+  - name: Arnab Moitra  
+    identifier: https://am1729.github.io/
+  
+inputs:
+  data:
+    label: Input Data
+    description: |
+      Path to the input data in GeoTiff format.
+    type: image/tiff;application=geotiff
+    example: "/scripts/SHI/myrmecophaga_tridactyla.tif"
+      
+  
+  threshold:
+    label: Threshold Value
+    description: |
+      A float representing the threshold value to apply for binary masking.
+      Values above this threshold will be set to 1, and others will be set to 0.
+    type: float
+    example: 0.6
+
+outputs:
+  binary_mask:
+    label: Binary Mask
+    description: |
+      A binary mask where values above the threshold are set to 1 and others to 0.
+      This mask is generated from the input data based on the specified threshold.
+    type: image/tiff;application=geotiff
+
+conda:
+  channels: 
+    - conda-forge
+  dependencies: 
+    - numpy
+    - rasterio
