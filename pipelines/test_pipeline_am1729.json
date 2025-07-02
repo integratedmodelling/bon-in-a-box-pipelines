@@ -1,0 +1,204 @@
+{
+  "nodes": [
+    {
+      "id": "0",
+      "type": "io",
+      "position": {
+        "x": 577,
+        "y": 239
+      },
+      "data": {
+        "descriptionFile": "data>getDataFromWeedSTAC.yml"
+      }
+    },
+    {
+      "id": "1",
+      "type": "io",
+      "position": {
+        "x": 531,
+        "y": 481
+      },
+      "data": {
+        "descriptionFile": "data>getThresholdBasedBinaryMasking.yml"
+      }
+    },
+    {
+      "id": "2",
+      "type": "userInput",
+      "position": {
+        "x": 231,
+        "y": 306
+      },
+      "dragHandle": ".dragHandle",
+      "data": {
+        "type": "text",
+        "value": "B04"
+      }
+    },
+    {
+      "id": "3",
+      "type": "userInput",
+      "position": {
+        "x": 233,
+        "y": 258
+      },
+      "dragHandle": ".dragHandle",
+      "data": {
+        "type": "text",
+        "value": "ecosystem-characteristics-alpha2-1"
+      }
+    },
+    {
+      "id": "4",
+      "type": "userInput",
+      "position": {
+        "x": 217,
+        "y": 212
+      },
+      "dragHandle": ".dragHandle",
+      "data": {
+        "type": "float[]",
+        "value": [
+          20.543618496121717,
+          37.947369372288286,
+          20.772365372103444,
+          38.126959939705046
+        ]
+      }
+    },
+    {
+      "id": "5",
+      "type": "userInput",
+      "position": {
+        "x": 195,
+        "y": 498
+      },
+      "dragHandle": ".dragHandle",
+      "data": {
+        "type": "float",
+        "value": 0.6
+      }
+    },
+    {
+      "id": "6",
+      "type": "output",
+      "position": {
+        "x": 1064,
+        "y": 464
+      },
+      "data": {
+        "label": "Output"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "0",
+      "sourceHandle": "data",
+      "target": "1",
+      "targetHandle": "data",
+      "id": "reactflow__edge-0data-1data"
+    },
+    {
+      "source": "2",
+      "sourceHandle": null,
+      "target": "0",
+      "targetHandle": "eo_band",
+      "id": "reactflow__edge-2-0eo_band"
+    },
+    {
+      "source": "3",
+      "sourceHandle": null,
+      "target": "0",
+      "targetHandle": "collection",
+      "id": "reactflow__edge-3-0collection"
+    },
+    {
+      "source": "4",
+      "sourceHandle": null,
+      "target": "0",
+      "targetHandle": "bbox",
+      "id": "reactflow__edge-4-0bbox"
+    },
+    {
+      "source": "5",
+      "sourceHandle": null,
+      "target": "1",
+      "targetHandle": "threshold",
+      "id": "reactflow__edge-5-1threshold"
+    },
+    {
+      "source": "1",
+      "sourceHandle": "binary_mask",
+      "target": "6",
+      "targetHandle": null,
+      "id": "reactflow__edge-1binary_mask-6"
+    }
+  ],
+  "inputs": {
+    "pipeline@2": {
+      "label": "EO Band",
+      "description": "The name of the Earth Observation band to filter the data.\nThis is used to specify which spectral band of the data is of interest.\n",
+      "type": "text",
+      "example": "B04",
+      "weight": 0
+    },
+    "pipeline@3": {
+      "label": "Collection",
+      "description": "The name of the collection to search within the Weed STAC catalogue.\nThis can be a specific dataset or a general category of data.\n",
+      "type": "text",
+      "example": "ecosystem-characteristics-alpha2-1",
+      "weight": 1
+    },
+    "pipeline@4": {
+      "label": "Bounding Box",
+      "description": "A vector of float representing the bounding box coordinates in the order xmin, ymin, xmax, ymax.\nThis defines the spatial extent for the data retrieval.\n",
+      "type": "float[]",
+      "example": [
+        20.543618496121717,
+        37.947369372288286,
+        20.772365372103444,
+        38.126959939705046
+      ],
+      "weight": 2
+    },
+    "pipeline@5": {
+      "label": "Threshold Value",
+      "description": "A float representing the threshold value to apply for binary masking.\nValues above this threshold will be set to 1, and others will be set to 0.\n",
+      "type": "float",
+      "example": 0.6,
+      "weight": 3
+    }
+  },
+  "outputs": {
+    "data>getThresholdBasedBinaryMasking.yml@1|binary_mask": {
+      "description": "A binary mask where values above the threshold are set to 1 and others to 0.\nThis mask is generated from the input data based on the specified threshold.\n",
+      "label": "Binary Mask",
+      "type": "image/tiff;application=geotiff",
+      "weight": 0
+    }
+  },
+  "metadata": {
+    "name": "WEED Data Loader",
+    "description": "This is a sample pipeline for getting some data from WEED Toolbox STAC Catalog, and then applying some Masking based on Thresholds",
+    "author": [
+      {
+        "name": "Arnab Moitra",
+        "email": "arnab.moitra@bc3research.org",
+        "identifier": "https://am1729.github.io/"
+      }
+    ],
+    "license": null,
+    "external_link": null,
+    "references": [
+      {
+        "text": null,
+        "doi": null
+      },
+      {
+        "text": null,
+        "doi": null
+      }
+    ]
+  }
+}
