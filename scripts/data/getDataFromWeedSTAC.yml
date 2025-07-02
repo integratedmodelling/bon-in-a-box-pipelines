@@ -1,0 +1,50 @@
+script: getDataFromWeedSTAC.py
+name: Get Data from Weed STAC Catalogue
+description: |
+  This script retrieves data from the Weed STAC catalogue using the `weedstac` package.
+  It allows users to search for data based on various parameters such as species, country, year range, bounding box, and more.
+author:
+  - name: Arnab Moitra
+    identifier: https://am1729.github.io/
+
+inputs:
+  bbox:
+    label: Bounding Box
+    description: |
+      A vector of float representing the bounding box coordinates in the order xmin, ymin, xmax, ymax.
+      This defines the spatial extent for the data retrieval.
+    type: float[]
+    example: [20.543618496121717, 37.947369372288286, 20.772365372103444, 38.126959939705046]
+
+  collection:
+    label: Collection
+    description: |
+      The name of the collection to search within the Weed STAC catalogue.
+      This can be a specific dataset or a general category of data.
+    type: text
+    example: "ecosystem-characteristics-alpha2-1"
+  
+  eo_band:
+    label: EO Band
+    description: |
+      The name of the Earth Observation band to filter the data.
+      This is used to specify which spectral band of the data is of interest.
+    type: text
+    example: "B04"
+
+outputs:
+  data:
+    label: Retreieved Data From WEED STAC Catalogue
+    description: |
+      A list of dictionaries containing the retrieved data from the Weed STAC catalogue.
+      Each dictionary represents a data item with its associated metadata.
+    type: image/tiff;application=geotiff
+
+conda:
+  channels:
+    - conda-forge
+  dependencies:
+    - pandas
+    - numpy
+    - rasterio
+    - pystac
